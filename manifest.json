@@ -1,0 +1,32 @@
+{
+	"name": "PreFlight Brief",
+	"short_name": "PreFlight",
+	"description": "A simple preflight briefing tool for HKA pilots.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#000099",
+	"scope": "/",
+	"icons": [
+		{
+			"src": "icons/pfb_128x128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/pfb_192x192.png",
+			"sizes": "152x152",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/pfb_256x256.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{		
+			"src": "icons/pfb_512x512.png",			
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}

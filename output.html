@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <title>Pre Flight Briefing</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectedData = JSON.parse(localStorage.getItem('selectedData'));
+
+            if (selectedData) {
+                document.getElementById('route').innerHTML = `${selectedData.departure} to ${selectedData.destination}<br><span style="font-size: 14px"> ${selectedData.homeICAO} (${selectedData.homeIATA}) to ${selectedData.destICAO} (${selectedData.destIATA})</span>`;
+                document.getElementById('aircraft').innerHTML = `
+                    <div class="regContainer">
+                        <div class="regLeft"></div>
+                        <div class="regCenter">
+                            ${selectedData.type} <br> ${selectedData.registration}
+                        </div>
+                        <div class="regRight">${selectedData.registrationConf}</div>
+                    </div>
+                `;
+                
+                // Format today's date as dd/MMM/YYYY
+                const today = new Date();
+                const options = { day: '2-digit', month: 'short', year: 'numeric' };
+                const formattedDate = today.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+                const formattedDateDay = today.toLocaleDateString('en-GB', { weekday: 'long' });
+                document.getElementById('todayDate').innerHTML = `<div style="font-size: 12px">${formattedDateDay}</div> <div>${formattedDate}</div>`;
+
+                document.getElementById('destCity').innerHTML = `
+                    <div class="dest-container">
+                        <div class="dest-left">
+                            <b>${selectedData.destIATA}</b><div style="font-size: 10px">Rwy ${selectedData.destAllRunway}</div>
+                        </div>
+                        <div class="dest-right">
+                            <img id="rwyIcons" src="${selectedData.destRunwayIcon}">
+                        </div>
+                    </div>
+                ` || 'Default Destination';
+
+                document.getElementById('homeCity').innerHTML = `
+                    <div class="home-container">
+                        <div class="home-left">
+                            <b>${selectedData.homeIATA}</b><div style="font-size: 10px">Rwy ${selectedData.homeAllRunway}</div>
+                        </div>
+                        <div class="home-right">
+                            <img id="rwyIcons" src="${selectedData.homeRunwayIcon}">
+                        </div>
+                    </div>
+                ` || 'Default Home City';
+
+                document.getElementById('destOvCond').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.destCurrentIcon.icon}">
+                            <span id="conditions">${selectedData.destOverallConditions}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.destCurrentTemp}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.destCurrentWindIcon.icon}">
+                            <span id="wind">${selectedData.destCurrentWindDeg}/${selectedData.destCurrentWindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Overview Condition';
+                document.getElementById('destHr2').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.destHour01Icon.icon}">
+                            <span id="conditions">${selectedData.destHourCond01}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.destHour01}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.destHour01WindIcon.icon}">
+                            <span id="wind">${selectedData.destHour01WindDeg}/${selectedData.destHour01WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Hour 2';
+                document.getElementById('destHr4').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.destHour02Icon.icon}">
+                            <span id="conditions">${selectedData.destHourCond02}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.destHour02}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.destHour02WindIcon.icon}">
+                            <span id="wind">${selectedData.destHour02WindDeg}/${selectedData.destHour02WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Hour 4';
+                document.getElementById('destHr6').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.destHour03Icon.icon}">
+                            <span id="conditions">${selectedData.destHourCond03}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.destHour03}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.destHour03WindIcon.icon}">
+                            <span id="wind">${selectedData.destHour03WindDeg}/${selectedData.destHour03WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Hour 6';
+                document.getElementById('destHr8').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.destHour04Icon.icon}">
+                            <span id="conditions">${selectedData.destHourCond04}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.destHour04}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.destHour04WindIcon.icon}">
+                            <span id="wind">${selectedData.destHour04WindDeg}/${selectedData.destHour04WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Hour 8';
+                document.getElementById('destHr10').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.destHour05Icon.icon}">
+                            <span id="conditions">${selectedData.destHourCond05}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.destHour05}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.destHour05WindIcon.icon}">
+                            <span id="wind">${selectedData.destHour05WindDeg}/${selectedData.destHour05WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Hour 10';
+               
+                document.getElementById('homeOvCond').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.homeCurrentIcon.icon}">
+                            <span id="conditions">${selectedData.homeOverallConditions}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.homeCurrentTemp}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.homeCurrentWindIcon.icon}">
+                            <span id="wind">${selectedData.homeCurrentWindDeg}/${selectedData.homeCurrentWindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Overview Condition';
+                document.getElementById('homeHr2').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.homeHour01Icon.icon}">
+                            <span id="conditions">${selectedData.homeHourCond01}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.homeHour01}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.homeHour01WindIcon.icon}">
+                            <span id="wind">${selectedData.homeHour01WindDeg}/${selectedData.homeHour01WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Home Hour 2';
+                document.getElementById('homeHr4').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.homeHour02Icon.icon}">
+                            <span id="conditions">${selectedData.homeHourCond02}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.homeHour02}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.homeHour02WindIcon.icon}">
+                            <span id="wind">${selectedData.homeHour02WindDeg}/${selectedData.homeHour02WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Home Hour 4';
+                document.getElementById('homeHr6').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.homeHour03Icon.icon}">
+                            <span id="conditions">${selectedData.homeHourCond03}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.homeHour03}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.homeHour03WindIcon.icon}">
+                            <span id="wind">${selectedData.homeHour03WindDeg}/${selectedData.homeHour03WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Home Hour 6';
+                document.getElementById('homeHr8').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.homeHour04Icon.icon}">
+                            <span id="conditions">${selectedData.homeHourCond04}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.homeHour04}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.homeHour04WindIcon.icon}">
+                            <span id="wind">${selectedData.homeHour04WindDeg}/${selectedData.homeHour04WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Home Hour 8';
+                document.getElementById('homeHr10').innerHTML = `
+                    <div id="conditionsContainer">
+                        <div id="conditionsLeft">
+                            <img id="icons" src="${selectedData.homeHour05Icon.icon}">
+                            <span id="conditions">${selectedData.homeHourCond05}</span>
+                        </div>
+                        <div id="conditionsMiddle">
+                            <span id="temperature">${selectedData.homeHour05}</span>
+                        </div>
+                        <div id="conditionsRight">
+                            <img id="windIcons" src="${selectedData.homeHour05WindIcon.icon}">
+                            <span id="wind">${selectedData.homeHour05WindDeg}/${selectedData.homeHour05WindSpeed}</span>
+                        </div>
+                    </div>
+                ` || 'Default Home Hour 10';
+                
+                // Set the time for each hourly forecast
+                document.getElementById('destHour00Time').innerHTML = `${selectedData.destHour00Time} UTC`;
+                document.getElementById('destHour01Time').innerHTML = `${selectedData.destHour01Time} UTC`;
+                document.getElementById('destHour02Time').innerHTML = `${selectedData.destHour02Time} UTC`;
+                document.getElementById('destHour03Time').innerHTML = `${selectedData.destHour03Time} UTC`;
+                document.getElementById('destHour04Time').innerHTML = `${selectedData.destHour04Time} UTC`;
+                document.getElementById('destHour05Time').innerHTML = `${selectedData.destHour05Time} UTC`;
+
+                document.getElementById('homeHour00Time').innerHTML = `${selectedData.homeHour00Time} UTC`;
+                document.getElementById('homeHour01Time').innerHTML = `${selectedData.homeHour01Time} UTC`;
+                document.getElementById('homeHour02Time').innerHTML = `${selectedData.homeHour02Time} UTC`;
+                document.getElementById('homeHour03Time').innerHTML = `${selectedData.homeHour03Time} UTC`;
+                document.getElementById('homeHour04Time').innerHTML = `${selectedData.homeHour04Time} UTC`;
+                document.getElementById('homeHour05Time').innerHTML = `${selectedData.homeHour05Time} UTC`;
+
+
+                // Flight Plan routes
+                document.getElementById('routeOut').innerHTML = `${selectedData.routeOutbound}`; 
+                document.getElementById('routeIn').innerHTML = `${selectedData.routeInbound}`;                   
+                // Radio frequencies section
+                document.getElementById('flightNoteOut').innerHTML = `
+                    <div class="radioOut-container">
+                        <div class="radioOut-left">
+                            ${selectedData.radioOutbound}
+                        </div>
+                        <div class="radioOut-right">
+                        </div>
+                    </div>`;
+                document.getElementById('flightNoteIn').innerHTML = `
+                    <div class="radioIn-container">
+                        <div class="radioIn-left">
+                            ${selectedData.radioInbound}
+                        </div>
+                        <div class="radioIn-right">
+                        </div>
+                    </div>`;
+
+                // Add user company to both flightNo elements
+                document.querySelectorAll('#flightNo').forEach(element => {
+                    element.innerHTML = selectedData.userComp || 'Default Company';
+                });
+            
+            } else {
+                console.error('No selected data found in localStorage');
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectedData = JSON.parse(localStorage.getItem('selectedData'));
+    
+            if (selectedData) {
+                const today = new Date();
+                const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });                
+                const homeICAO = selectedData.homeICAO;
+                const destICAO = selectedData.destICAO;
+
+                                                               
+                const logtenUrl = `logten://v2/addEntities?package=%7B%22entities%22%3A%5B%7B%22entity_name%22%3A%22Flight%22%2C%22flight_flightDate%22%3A%22${date}%22%2C%22flight_to%22%3A%22${destICAO}%22%2C%22flight_from%22%3A%22${homeICAO}%22%7D%2C%7B%22entity_name%22%3A%22Aircraft%22%2C%22aircraft_aircraftID%22%3A%22${selectedData.registration}%22%7D%5D%2C%22metadata%22%3A%7B%22dateAndTimeFormat%22%3A%22MM%2Fdd%2Fyyyy%20HH%3Amm%22%2C%22timesAreZulu%22%3Atrue%2C%22application%22%3A%22MyApplication%22%2C%22dateFormat%22%3A%22MM%2Fdd%2Fyyyy%22%2C%22timeFormat%22%3A%22HH%3Amm%22%2C%22version%22%3A%221.0%22%7D%7D`;                
+                const urlParams = new URLSearchParams(logtenUrl.split('?')[1]);
+                const packageParam = urlParams.get('package');
+                const decodedPackage = decodeURIComponent(packageParam);
+
+                console.log('Decoded package:', decodedPackage);
+                console.log('Parsed JSON:', JSON.parse(decodedPackage));
+                
+                document.getElementById('logtenButton').addEventListener('click', function () {
+                    window.location.href = logtenUrl;
+                });
+            } else {
+                console.error('No selected data found in localStorage');
+            }
+        });
+    </script>
+    <style>
+        @page {
+            margin: 5mm;
+            size: 198mm 285mm;
+            width: fit-content;
+            max-width: fit-content;
+        }
+      
+        table {
+            width: 98%;
+            max-width: 98%;
+            border-collapse: collapse;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 1%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 4px; /* Adjusted padding */
+            text-align: center;	
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Set fixed width for columns 2-6 */
+
+        td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {
+            width: 12%;
+            max-width: 12%;
+        }
+        #output {
+            width: 98%;
+            max-width: 98%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #note {
+            font-size: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            text-align: left;
+            height: 18mm;
+            border-bottom: none;
+        }
+        #flightNote {
+            font-size: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            text-align: left;
+            height: 50mm;
+            border-bottom: none;
+        }
+        #tinyText td {
+            font-size: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            text-align: left;
+            height: 14mm;
+            padding-top: 1.5mm;
+            padding-left: 1.5mm;
+        }
+        #weatherText td {
+            font-size: 14px;
+            vertical-align: center;
+            text-align: center;
+            height: 10mm;
+            padding: 0.5mm;
+            border-top: none;
+        }
+        #hourlyTimes td {
+            font-size: 10px;
+            vertical-align: center;
+            text-align: left;
+            height: 3mm;
+            padding: 0.5mm;
+            border-bottom: none;
+        }
+        #taxi {
+            text-align: right;
+            width: 12%;
+            max-width: 12%;
+        }
+        .checkbox-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 75%;
+            margin-left: auto;
+            font-size: 12px;
+            font-weight: normal;
+        }
+        .checkbox-container p {
+            margin: 0; /* Remove default margin */
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-container p::before {
+            content: '\2610'; /* Unicode for an empty checkbox */
+            margin-right: 2px;
+        }
+        #icons {
+            width: 28px;
+            height: 28px;
+            vertical-align: bottom;
+            margin-bottom: -8px;
+        }
+        #windIcons {
+            width: 32px;
+            height: 32px;
+            vertical-align: bottom;
+        }
+        #rwyIcons {
+            width: 60px;
+            height: 60px;
+            vertical-align: center;
+            margin-bottom: 0;
+        }
+        #conditions {
+            font-size: 10px;
+        }
+        #conditionsContainer {
+            display: flex;
+            justify-content: space-between;
+            gap: 0;
+        }
+        #conditionsLeft, #conditionsRight {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        #conditionsMiddle {
+            display: flex;
+            flex-direction: column;
+            align-items: top;
+            margin: 0;
+            padding: 0;
+        }
+        #conditionsLeft {
+            align-items: center;
+        }
+        #conditionsRight {
+            align-items: center;
+        }
+        #temperature {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #wind {
+            font-size: 10px;
+        }
+        .regContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .regLeft {
+            flex: 1;
+        }
+        .regCenter {
+            flex: 1;
+            text-align: center;
+            text-align: top;
+        }
+        .regRight {
+            flex: 1;
+            text-align: bottom;
+            font-size: 14px;
+        }
+        .home-container, .dest-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .home-left, .dest-left {
+            text-align: center;
+            font-size: 20px;
+            width: 50%;
+            max-width: 50%;
+            word-wrap: break-word;
+        }
+        .home-right, .dest-right {
+            text-align: center;
+            font-size: 20px;
+            width: 50%;
+        }
+        .flightNo_Time {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+       /* Splitting and adding the ETD ETA fields */
+        .flt-Time-top {
+            flex: 3;
+            display: flex;
+            align-items: top;
+            justify-content: left;
+        }
+        .flt-Time-bottom {
+            flex: 1;
+            display: flex;
+            align-items: top;
+            justify-content: left;
+        }
+        .fltDetails {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        /* adding the Date and Pax Numbers Fields */
+        .fltDetails-top {
+            flex: 2;
+            display: flex;
+            align-items: top;
+            justify-content: left;
+        }
+        .fltDetails-bottom {
+            flex: 2;
+            display: flex;
+            align-items: top;
+            justify-content: left;
+        }
+        /* Style for the Logten button */
+        #logtenButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+/* style for the route and radio areas */
+    #routeTitle td {
+        font-size: 10px;
+        font-weight: bold;
+        vertical-align: center;
+        text-align: left;
+        height: 3mm;
+        padding: 0.5mm;
+        border-bottom: none;
+    }
+    #routeOut, #routeIn {
+        font-size: 14px;
+        font-family: 'Inconsolata', monospace;
+        text-align: left;
+        border-top: none;
+    }
+
+    #flightNoteOut, #flightNoteIn {
+        font-size: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .radioOut-container, .radioIn-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .radioOut-left, .radioIn-left {
+        flex: 1;
+        text-align: left;
+        font-family: 'Inconsolata', monospace;
+        white-space: pre;
+        font-size: 14px;
+        padding-left: 5px;
+    }
+
+    .radioOut-right, .radioIn-right {
+        flex: 1;
+        text-align: right;
+    }
+
+        @media print {
+            #logtenButton {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body id="output">
+        <button id="logtenButton">Logten</button>
+    <div >
+    <table>
+        <thead>
+            <tr>
+                <th colspan="7">Pre Flight Briefing</th>
+            </tr>
+            <tr>
+                <th id="route" colspan="2">Header 1</th>
+                <th id="aircraft" colspan="3">Header 3</th>
+                <th id="todayDate" colspan="2">Header 5</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="tinyText">
+                <td colspan="7" style="height: 9mm;">Flight Crew: </td>
+            </tr>
+            <tr id="tinyText">
+                <td>
+                    <div class="flightNo_Time">
+                        <div class="flt-Time-top" id="flightNo">Flight No</div>
+                        <div class="flt-Time-bottom">ETD</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="flightNo_Time">
+                        <div class="flt-Time-top">Flight Time</div>
+                        <div class="flt-Time-bottom">ETA</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="fltDetails">
+                        <div class="fltDetails-top">Gate</div>
+                        <div class="fltDetails-bottom">Final Pax</div>
+                    </div>
+                </td>
+                <td id="flightConditions" colspan="3">Flight Conditions</td>
+                <td id="taxiOptions" colspan="1">Taxi
+                    <div class="checkbox-container">
+                        <p>Short Taxi</p>
+                        <p>Normal Taxi</p>
+                        <p>Long Taxi</p>
+                    </div>
+                </td>
+            </tr>
+            <tr id="hourlyTimes">
+                <td id="empty"></td>
+                <td id="destHour00Time"></td>
+                <td id="destHour01Time"></td>
+                <td id="destHour02Time"></td>
+                <td id="destHour03Time"></td>
+                <td id="destHour04Time"></td>
+                <td id="destHour05Time"></td> 
+            </tr>
+            <tr id="weatherText">
+                <td id="destCity">Row 2, Col 1</td>
+                <td id="destOvCond">Row 2, Col 2</td>
+                <td id="destHr2">Row 2, Col 3</td>
+                <td id="destHr4">Row 2, Col 4</td>
+                <td id="destHr6">Row 2, Col 5</td>
+                <td id="destHr8">Row 2, Col 6</td>
+                <td id="destHr10">Row 2, Col 7</td>
+            </tr>
+            <tr id="tinyText">
+                <td>
+                    <div class="flightNo_Time">
+                        <div class="flt-Time-top" id="flightNo">Flight No</div>
+                        <div class="flt-Time-bottom">ETD</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="flightNo_Time">
+                        <div class="flt-Time-top">Flight Time</div>
+                        <div class="flt-Time-bottom">ETA</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="fltDetails">
+                        <div class="fltDetails-top">Gate</div>
+                        <div class="fltDetails-bottom">Final Pax</div>
+                    </div>
+                </td>
+                <td id="flightCond" colspan="3">Flight Conditions</td>
+                <td id="taxi" colspan="1">Taxi
+                    <div class="checkbox-container">
+                        <p>Short Taxi</p>
+                        <p>Normal Taxi</p>
+                        <p>Long Taxi</p>
+                    </div>
+                </td>
+            </tr>
+            <tr id="hourlyTimes">
+                <td id="empty"></td>
+                <td id="homeHour00Time"></td>
+                <td id="homeHour01Time"></td>
+                <td id="homeHour02Time"></td>
+                <td id="homeHour03Time"></td>
+                <td id="homeHour04Time"></td>
+                <td id="homeHour05Time"></td> 
+            </tr>
+            <tr id="weatherText">
+                <td id="homeCity">Row 2, Col 1</td>
+                <td id="homeOvCond">Row 2, Col 2</td>
+                <td id="homeHr2">Row 2, Col 3</td>
+                <td id="homeHr4">Row 2, Col 4</td>
+                <td id="homeHr6">Row 2, Col 5</td>
+                <td id="homeHr8">Row 2, Col 6</td>
+                <td id="homeHr10">Row 2, Col 7</td>
+            </tr>
+            <tr>
+                <td id="note" colspan="7">Additional Information</td>
+            </tr>
+            <tr id="routeTitle">
+                <td id="routeOutTitle" colspan="3">FMS Route</td>
+                <td id="routeInTitle" colspan="4">FMS Route</td>
+            </tr>
+            <tr>
+                <td id="routeOut" colspan="3" >Flight One - Notes</td>
+                <td id="routeIn" colspan="4" >Flight Two - Notes</td>
+            </tr>
+            <tr>
+                <td id="flightNoteOut" colspan="3" >Flight One - Notes</td>
+                <td id="flightNoteIn" colspan="4">Flight Two - Notes</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
