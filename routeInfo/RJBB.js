@@ -26,18 +26,20 @@ export const RJBB = {
             ARR: {
                 APP: "120.25",
                 RAD: "125.5",
-                TWR: "118.05",
+                TWR: "118.2",
                 GND: "121.6"
             }
         },
         inbound: {
             DEP: {
-                TWR: "118.2",
+                GND: "121.6",
+               GND2: "121.65",
+               TWR: "118.05",
                 KIX: "DEP 119.2"
             },
             FL150plus: "KOBE 127.15",
-            FL300plus: "FUK 119.35 / FUK 134.35",
-            AKVAM: "FUK 135.3",
+            FL300plus: "FUK 134.35",
+            IGBOD: "FUK 135.3",
             JEDAI: "FUK 127.5",
             BULAN: "TPE 123.6",
             APU: "TPE 126.7",
