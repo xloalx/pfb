@@ -1,7 +1,7 @@
 export const RJFF = {
     route: {
         outbound: "DALOL V631 ENVAR M750 MOMPA Y25 ISKUP",
-        inbound: "YAMGA DCT HKC A1 ELATO V522 ABBEY"
+        inbound: "VEMRA Y506 HKC A1 ELATO V522 ABBEY"
     },
     radio: {
         outbound: {
@@ -19,6 +19,7 @@ export const RJFF = {
             MOLKA: "FUK 127.5",
             INVAM: "FUK 135.3",
             FL335: "KOBE 118.9",
+            FL200: "NAG RAD 121.025",
             GUSPA: "FUK APP 119.65",
 			A100: "FUK RAD 121.12",
             ARR: {
