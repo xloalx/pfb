@@ -1,7 +1,7 @@
 export const RJBB = {
     route: {
-        outbound: "DALOL V631 ENVAR M750 MADOG Y53 BECKY",
-        inbound: "MAIKO Y34 SUKMO Y50 IGMON A1 ELATO V522 ABBEY"
+        outbound: "DALOL V631 ENVAR M750 MADOG Y53 NIXOV",
+        inbound: "OLBUR Y236 IVTER Y34 HKC Y50 IGMON A1 ELATO V522 ABBEY"
     },
    
     radio: {
@@ -21,8 +21,8 @@ export const RJBB = {
             MOLKA: "FUK 127.5",
             INVAM: "FUK 135.3",
             MIDAI: "KOBE 133.85",
-            STORK: "KOBE 127.15",
-            KARIN: "KIX APP",
+            UPGEB: "KOBE 127.15",
+            : "KIX APP",
             ARR: {
                 APP: "120.25",
                 RAD: "125.5",
