@@ -22,7 +22,6 @@ export const RJBB = {
             INVAM: "FUK 135.3",
             MIDAI: "KOBE 133.85",
             UPGEB: "KOBE 127.15",
-            : "KIX APP",
             ARR: {
                 APP: "120.25",
                 RAD: "125.5",
