@@ -244,7 +244,8 @@ document.addEventListener('DOMContentLoaded', function () {
             destAllRunway: destinations[selectedDestination].allRunway,
             homeRunwayIcon: runwayIcons[formatRunway(homeBaseRunway)].rwyIcon, // Add homeRunwayIcon
             destRunwayIcon: runwayIcons[formatRunway(destinations[selectedDestination].runway)].rwyIcon, // Add destRunwayIcon
-            registrationConf: registrations[selectedRegistration].config // Add registrationConf
+            registrationConf: registrations[selectedRegistration].config, // Add registrationConf
+            registrationDOW: registrations[selectedRegistration].dow // Add registrationDOW
         };
 
         // Dynamically import the destICAO.js file from the routeInfo directory

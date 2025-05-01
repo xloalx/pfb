@@ -17,7 +17,7 @@
                         <div class="regCenter">
                             ${selectedData.type} <br> ${selectedData.registration}
                         </div>
-                        <div class="regRight">${selectedData.registrationConf}</div>
+                        <div class="regRight">${selectedData.registrationConf}<br>${selectedData.registrationDOW}</div>
                     </div>
                 `;
                 
@@ -31,7 +31,7 @@
                 document.getElementById('destCity').innerHTML = `
                     <div class="dest-container">
                         <div class="dest-left">
-                            <b>${selectedData.destIATA}</b><div style="font-size: 10px">Rwy ${selectedData.destAllRunway}</div>
+                            <b>${selectedData.destIATA}</b><div style="font-size: 10px">${selectedData.destAllRunway}</div>
                         </div>
                         <div class="dest-right">
                             <img id="rwyIcons" src="${selectedData.destRunwayIcon}">
@@ -42,7 +42,7 @@
                 document.getElementById('homeCity').innerHTML = `
                     <div class="home-container">
                         <div class="home-left">
-                            <b>${selectedData.homeIATA}</b><div style="font-size: 10px">Rwy ${selectedData.homeAllRunway}</div>
+                            <b>${selectedData.homeIATA}</b><div style="font-size: 10px">${selectedData.homeAllRunway}</div>
                         </div>
                         <div class="home-right">
                             <img id="rwyIcons" src="${selectedData.homeRunwayIcon}">
@@ -343,6 +343,10 @@
         }
         .solidLeft {
             border-left: 3px solid black;
+        }
+        .noRight {
+
+            border-right: none !important;
         }
 
         #note {
@@ -698,6 +702,14 @@
             <tr>
                 <td id="routeOut" colspan="3" >Flight One - Notes</td>
                 <td id="routeIn" class="solidLeft" colspan="3" >Flight Two - Notes</td>
+            </tr>
+            <tr id="tinyText">
+                <td class="noRight">Oil L / R</td>
+                <td class="noRight"></td>
+                <td>Weight Pred</td>
+                <td class="solidLeft noRight">Oil L / R</td>
+                <td class="noRight"></td>
+                <td>Weight Pred</td>
             </tr>
             <tr>
                 <td id="flightNoteOut" colspan="3" >Flight One - Notes</td>
