@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 ` || 'Default Hour 8';
-                document.getElementById('destHr10').innerHTML = `
+                /*document.getElementById('destHr10').innerHTML = `
                     <div id="conditionsContainer">
                         <div id="conditionsLeft">
                             <img id="icons" src="${selectedData.destHour05Icon.icon}">
@@ -138,8 +138,8 @@
                             <img id="windIcons" src="${selectedData.destHour05WindIcon.icon}">
                             <span id="wind">${selectedData.destHour05WindDeg}/${selectedData.destHour05WindSpeed}</span>
                         </div>
-                    </div>
-                ` || 'Default Hour 10';
+                    </div> 
+                ` || 'Default Hour 10';*/
                
                 document.getElementById('homeOvCond').innerHTML = `
                     <div id="conditionsContainer">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                 ` || 'Default Home Hour 8';
-                document.getElementById('homeHr10').innerHTML = `
+                /*document.getElementById('homeHr10').innerHTML = `
                     <div id="conditionsContainer">
                         <div id="conditionsLeft">
                             <img id="icons" src="${selectedData.homeHour05Icon.icon}">
@@ -230,7 +230,7 @@
                             <span id="wind">${selectedData.homeHour05WindDeg}/${selectedData.homeHour05WindSpeed}</span>
                         </div>
                     </div>
-                ` || 'Default Home Hour 10';
+                ` || 'Default Home Hour 10';*/
                 
                 // Set the time for each hourly forecast
                 document.getElementById('destHour00Time').innerHTML = `${selectedData.destHour00Time} UTC`;
@@ -238,14 +238,14 @@
                 document.getElementById('destHour02Time').innerHTML = `${selectedData.destHour02Time} UTC`;
                 document.getElementById('destHour03Time').innerHTML = `${selectedData.destHour03Time} UTC`;
                 document.getElementById('destHour04Time').innerHTML = `${selectedData.destHour04Time} UTC`;
-                document.getElementById('destHour05Time').innerHTML = `${selectedData.destHour05Time} UTC`;
+                //document.getElementById('destHour05Time').innerHTML = `${selectedData.destHour05Time} UTC`;
 
                 document.getElementById('homeHour00Time').innerHTML = `${selectedData.homeHour00Time} UTC`;
                 document.getElementById('homeHour01Time').innerHTML = `${selectedData.homeHour01Time} UTC`;
                 document.getElementById('homeHour02Time').innerHTML = `${selectedData.homeHour02Time} UTC`;
                 document.getElementById('homeHour03Time').innerHTML = `${selectedData.homeHour03Time} UTC`;
                 document.getElementById('homeHour04Time').innerHTML = `${selectedData.homeHour04Time} UTC`;
-                document.getElementById('homeHour05Time').innerHTML = `${selectedData.homeHour05Time} UTC`;
+               // document.getElementById('homeHour05Time').innerHTML = `${selectedData.homeHour05Time} UTC`;
 
 
                 // Flight Plan routes
@@ -331,15 +331,18 @@
         }
         /* Set fixed width for columns 2-6 */
 
-        td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {
-            width: 12%;
-            max-width: 12%;
+        td:nth-child(1),td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+            width: 16%;
+            max-width: 16%;
         }
         #output {
             width: 98%;
             max-width: 98%;
             margin: 0;
             padding: 0;
+        }
+        .solidLeft {
+            border-left: 3px solid black;
         }
 
         #note {
@@ -592,22 +595,22 @@
     </style>
 </head>
 <body id="output">
-        <button id="logtenButton">Logten</button>
+        
     <div >
     <table>
         <thead>
             <tr>
-                <th colspan="7">Pre Flight Briefing</th>
+                <th colspan="6">Pre Flight Briefing</th>
             </tr>
             <tr>
                 <th id="route" colspan="2">Header 1</th>
-                <th id="aircraft" colspan="3">Header 3</th>
+                <th id="aircraft" colspan="2">Header 3</th>
                 <th id="todayDate" colspan="2">Header 5</th>
             </tr>
         </thead>
         <tbody>
             <tr id="tinyText">
-                <td colspan="7" style="height: 9mm;">Flight Crew: </td>
+                <td colspan="6" style="height: 9mm;">Flight Crew: </td>
             </tr>
             <tr id="tinyText">
                 <td>
@@ -622,99 +625,83 @@
                         <div class="flt-Time-bottom">ETA</div>
                     </div>
                 </td>
-                <td>
-                    <div class="fltDetails">
-                        <div class="fltDetails-top">Gate</div>
-                        <div class="fltDetails-bottom">Final Pax</div>
-                    </div>
-                </td>
-                <td id="flightConditions" colspan="3">Flight Conditions</td>
-                <td id="taxiOptions" colspan="1">Taxi
+                <td id="taxiOptions">Taxi
                     <div class="checkbox-container">
                         <p>Short Taxi</p>
                         <p>Normal Taxi</p>
                         <p>Long Taxi</p>
                     </div>
                 </td>
+                <td class="solidLeft">
+                    <div class="flightNo_Time">
+                        <div class="flt-Time-top" id="flightNo">Flight No</div>
+                        <div class="flt-Time-bottom">ETD</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="flightNo_Time">
+                        <div class="flt-Time-top">Flight Time</div>
+                        <div class="flt-Time-bottom">ETA</div>
+                    </div>
+                </td>
+                <td id="taxiOptions">Taxi
+                    <div class="checkbox-container">
+                        <p>Short Taxi</p>
+                        <p>Normal Taxi</p>
+                        <p>Long Taxi</p>
+                    </div>
+                </td>
+            </tr>
+            <tr id="tinyText" style="height: 9mm;">
+                <td id="flightConditions" colspan="3">Flight Conditions</td>
+                <td id="flightConditions" class="solidLeft" colspan="3">Flight Conditions</td>
             </tr>
             <tr id="hourlyTimes">
                 <td id="empty"></td>
                 <td id="destHour00Time"></td>
                 <td id="destHour01Time"></td>
+                <td id="empty" class="solidLeft"></td>
+                <td id="homeHour00Time"></td>
+                <td id="homeHour01Time"></td>
+            </tr>    
+            <tr id="weatherText">
+                <td id="destCity">Dest City</td>
+                <td id="destOvCond">Dest WX Cond</td>
+                <td id="destHr2">Dest Hr 2</td>
+                <td id="homeCity" class="solidLeft">home City</td>
+                <td id="homeOvCond">Home WX Cond</td>
+                <td id="homeHr2">Home Hr 2</td>
+            </tr>    
+            <tr id="hourlyTimes">
                 <td id="destHour02Time"></td>
                 <td id="destHour03Time"></td>
                 <td id="destHour04Time"></td>
-                <td id="destHour05Time"></td> 
+                <td id="homeHour02Time" class="solidLeft"></td>
+                <td id="homeHour03Time"></td>
+                <td id="homeHour04Time"></td> 
             </tr>
             <tr id="weatherText">
-                <td id="destCity">Row 2, Col 1</td>
-                <td id="destOvCond">Row 2, Col 2</td>
-                <td id="destHr2">Row 2, Col 3</td>
                 <td id="destHr4">Row 2, Col 4</td>
                 <td id="destHr6">Row 2, Col 5</td>
                 <td id="destHr8">Row 2, Col 6</td>
-                <td id="destHr10">Row 2, Col 7</td>
-            </tr>
-            <tr id="tinyText">
-                <td>
-                    <div class="flightNo_Time">
-                        <div class="flt-Time-top" id="flightNo">Flight No</div>
-                        <div class="flt-Time-bottom">ETD</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="flightNo_Time">
-                        <div class="flt-Time-top">Flight Time</div>
-                        <div class="flt-Time-bottom">ETA</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="fltDetails">
-                        <div class="fltDetails-top">Gate</div>
-                        <div class="fltDetails-bottom">Final Pax</div>
-                    </div>
-                </td>
-                <td id="flightCond" colspan="3">Flight Conditions</td>
-                <td id="taxi" colspan="1">Taxi
-                    <div class="checkbox-container">
-                        <p>Short Taxi</p>
-                        <p>Normal Taxi</p>
-                        <p>Long Taxi</p>
-                    </div>
-                </td>
-            </tr>
-            <tr id="hourlyTimes">
-                <td id="empty"></td>
-                <td id="homeHour00Time"></td>
-                <td id="homeHour01Time"></td>
-                <td id="homeHour02Time"></td>
-                <td id="homeHour03Time"></td>
-                <td id="homeHour04Time"></td>
-                <td id="homeHour05Time"></td> 
-            </tr>
-            <tr id="weatherText">
-                <td id="homeCity">Row 2, Col 1</td>
-                <td id="homeOvCond">Row 2, Col 2</td>
-                <td id="homeHr2">Row 2, Col 3</td>
-                <td id="homeHr4">Row 2, Col 4</td>
+                <td id="homeHr4" class="solidLeft">Row 2, Col 4</td>
                 <td id="homeHr6">Row 2, Col 5</td>
                 <td id="homeHr8">Row 2, Col 6</td>
-                <td id="homeHr10">Row 2, Col 7</td>
             </tr>
             <tr>
-                <td id="note" colspan="7">Additional Information</td>
+                <td id="note" colspan="6">Additional Information</td>
             </tr>
             <tr id="routeTitle">
                 <td id="routeOutTitle" colspan="3">FMS Route</td>
-                <td id="routeInTitle" colspan="4">FMS Route</td>
+                <td id="routeInTitle" class="solidLeft" colspan="3">FMS Route</td>
             </tr>
             <tr>
                 <td id="routeOut" colspan="3" >Flight One - Notes</td>
-                <td id="routeIn" colspan="4" >Flight Two - Notes</td>
+                <td id="routeIn" class="solidLeft" colspan="3" >Flight Two - Notes</td>
             </tr>
             <tr>
                 <td id="flightNoteOut" colspan="3" >Flight One - Notes</td>
-                <td id="flightNoteIn" colspan="4">Flight Two - Notes</td>
+                <td id="flightNoteIn" class="solidLeft" colspan="3">Flight Two - Notes</td>
             </tr>
         </tbody>
     </table>
