@@ -341,13 +341,7 @@
             margin: 0;
             padding: 0;
         }
-        .solidLeft {
-            border-left: 3px solid black;
-        }
-        .noRight {
-
-            border-right: none !important;
-        }
+        
 
         #note {
             font-size: 10px;
@@ -373,6 +367,16 @@
             height: 14mm;
             padding-top: 1.5mm;
             padding-left: 1.5mm;
+        }
+        #tinyTextfltNote td {
+            font-size: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            text-align: left;
+            height: 8mm;
+            padding-top: 1.5mm;
+            padding-left: 1.5mm;
+            border-bottom: none;
         }
         #weatherText td {
             font-size: 14px;
@@ -570,6 +574,7 @@
         font-size: 10px;
         font-weight: bold;
         text-align: left;
+        border-top: none;
     }
 
     .radioOut-container, .radioIn-container {
@@ -590,7 +595,15 @@
         flex: 1;
         text-align: right;
     }
-
+    td.solidLeft {
+            border-left: 3px solid black;
+        }
+    td.noRight {
+        border-right: none !important;
+    }
+    td.noleft {
+        border-left: none !important;
+    }
         @media print {
             #logtenButton {
                 display: none;
@@ -703,13 +716,13 @@
                 <td id="routeOut" colspan="3" >Flight One - Notes</td>
                 <td id="routeIn" class="solidLeft" colspan="3" >Flight Two - Notes</td>
             </tr>
-            <tr id="tinyText">
+            <tr id="tinyTextfltNote">
                 <td class="noRight">Oil L / R</td>
-                <td class="noRight"></td>
-                <td>Weight Pred</td>
+                <td class=" noleft noRight"></td>
+                <td class="noleft">Weight Pred</td>
                 <td class="solidLeft noRight">Oil L / R</td>
-                <td class="noRight"></td>
-                <td>Weight Pred</td>
+                <td class=" noleft noRight"></td>
+                <td class="noleft">Weight Pred</td>
             </tr>
             <tr>
                 <td id="flightNoteOut" colspan="3" >Flight One - Notes</td>
