@@ -1,8 +1,7 @@
 
 export const ZSSS = {
     route: {
-        outbound: "VHHH LEKEN1B LEKEN V601 DOTMI A470 LJG B221 SHZ G204 JTN AND61A
-ZSSS",
+        outbound: "VHHH LEKEN1B LEKEN V601 DOTMI A470 LJG B221 SHZ G204 JTN AND61A ZSSS",
         inbound: "ZSSS NXD71D NXD W131 AKDIM A470 DOTMI V512 ABBEY ABBEY4A VHHH",
     },
     radio: {
@@ -36,8 +35,7 @@ ZSSS",
                 GND: "121.9",
                 TWR: "118.1",
                 TWR2: "",
-                DEP: ""the new 
- no                 
+                DEP: ""             
             },
             MORE: "",
             DOTMI: "HKG 121.3",
