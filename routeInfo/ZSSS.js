@@ -14,10 +14,10 @@ export const ZSSS = {
                 DEP2: "133.825"
             },
             DALOL: "HKG 118.925",
-            LOC: "HKG 121.3",
+            LARIT: "HKG 121.3",
             DOTMI: "SHA 128.35",
-            TEBON: "SHA 120.9",
-            ENVEN: "SHA 128.15",
+            TEBON: "SHA 120.9 | 125.975",
+            ENVEN: "SHA 128.15 | 133.225",
             UBTIX: "SHA 132.625",
             DST: "SHA 128.75",
             ARR: {
@@ -41,6 +41,7 @@ export const ZSSS = {
             },
             CLB1: "PVG 135.75",
             CLB2: "PVG 134.55",
+            SAGNU: "PVG 128.325",
             TOL: "PVG 124.95",
             DAGMO: "PVG 133.225",
             ENVEN: "PVG 120.9",

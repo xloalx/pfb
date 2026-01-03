@@ -1,7 +1,7 @@
 export const YSSY = {
     route: {
         outbound: "DALOL V641 NOMAN A461 AVMUP W16 MIA DCT LIGPA B472 COT R590 AMN R340 SURVO Y161 OVNOM H652 BOREE",
-        inbound: " Flight Plan",
+        inbound: "RIC H530 SURVO R340 AMN A461 ZAM A583 SABNO V542 BETTY",
     },
     radio: {
         outbound: {
@@ -10,17 +10,17 @@ export const YSSY = {
                 GND2: "122.6",
                 TWR: "118.4",
                 DEP: "123.8",
-                DEP2: "132.15"
+                DEP2: "132.15",
             },
-            AKOTA: "HKG 132.7"
+            AKOTA: "HKG 132.7",
             NOMAN_PDC: "RPHI",
             NOMAN: "MNL 119.3",
-            HF MNL: "8945/5655",
-            AVMUP: "MNL 120.5",
+            HF_MNL: "8945/5655",
+            AVMUP_AKOTA: "MNL 120.5",
             OLIVA: "MNL 125.7",
             MARAN: "MNL 124.9",
             PEDNO_PDC: "WAAF",
-            PEDNO: "UJN 128.1",
+            PEDNO_NITIP: "UJN 128.1",
             DULON: "UJN 132.35",
             GUTEV: "BNE 6556/11386",
             BNE_PDC: "YBBB",
@@ -35,7 +35,6 @@ export const YSSY = {
                 APP: "",
 				TWR: "120.5",
                 GND: "126.5",
-                GND_E: ""
             }
         },
         inbound: {
@@ -46,7 +45,7 @@ export const YSSY = {
                 DEP2: "135.9",
                 
             },
-            FL100_PDC; "YBBB",
+            FL100_PDC: "YBBB",
             FL180: "BNE 133.0",
             POTUM: "BNE 133.4",
             IVRAD: "BNE 134.2",
@@ -71,4 +70,4 @@ export const YSSY = {
             }
         }
     }
-}.
+}

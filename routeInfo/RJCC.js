@@ -1,12 +1,10 @@
-export const RJAA = {
+export const RJCC = {
     route: {
-        outbound: "DALOL V631 ENVAR M750 MADOG Y53 NIXOV",
-        inbound: "OLBUR Y236 IVTER Y34 HKC Y50 IGMON A1 ELATO V522 ABBEY"
+        outbound: "+++CHECK+++ DALOL V631 ENVAR M750 MOMPA Y25 ISKUP",
+        inbound: "DALBI Y120 TAPPI Y12 ARIKA Y14 MIHOU Y45 HKC Y50 IGMON A1 ELATO V522 ABBEY"
     },
-   
     radio: {
         outbound: {
-         
             DEP: {
                 GND: "121.875",
                 GND2: "122.6",
@@ -20,32 +18,26 @@ export const RJAA = {
             PILOX: "TPE 123.6",
             MOLKA: "FUK 127.5",
             INVAM: "FUK 135.3",
-            MADOG: "FUK 134.35",
-            MEXIR: "FUK 134.15",
-            AGIMO: "FUK 125.9",
-            
+            MORE: "FUK _____",
             ARR: {
-                APP: "124.4",
-                RAD: "120.2",
-                APP2: "121.27",
-                TWR: "118.35",
-                GND: "121.85",
-                GND2: "121.95",
-                APN: "121.6",
+                TWR: "118.4",
+                GND: "121.7"
             }
         },
         inbound: {
             DEP: {
-                DEL: "121.9",
-                APN: "121.6",
                 GND: "121.95",
-               TWR: "118.2",
-                DEP: "NRT 124.2",
+                GND2: "121.6",
+                TWR: "118.8",
+                DEP: "CTS 124.7",
+                FL150: "TOK 119.3",
             },
-            FL150: "TOK 132.1",
-            FL350: "TOK 133.35",
-            LABEL: "FUK 134.35",
-            AVKAM: "FUK 135.3",
+            DALBI: "FUK 133.3",
+            NYUDO: "FUK120.75",
+            GOLDO: "FUK 133.025",
+            SAMON: "FUK 124.15",
+            SUGNO_MIHOU: "FUK 133.15",
+            SOBOH_OOITA: "FUK 135.3",
             JEDAI: "FUK 127.5",
             BULAN: "TPE 123.6",
             APU: "TPE 126.7",
