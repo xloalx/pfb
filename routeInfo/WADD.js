@@ -1,6 +1,6 @@
-export const generic = {
+export const WADD = {
     route: {
-        outbound: "Flight PlanDALOL V651 SABNO A583 AKOTA M754 VINIK M522 DOBMA",
+        outbound: "DALOL V651 SABNO A583 AKOTA M754 VINIK M522 DOBMA",
         inbound: " Flight Plan",
     },
     radio: {
